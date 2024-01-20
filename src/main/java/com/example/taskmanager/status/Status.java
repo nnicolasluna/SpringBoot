@@ -8,12 +8,16 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
+@EnableJpaAuditing
 @SQLDelete(sql = "UPDATE Status SET deleted = true WHERE status_id=?")
 @Where(clause = "deleted = false")
 public class Status {
@@ -50,10 +54,11 @@ public class Status {
         this.uuid = uuid;
     }
 
-    public Status(UUID uuid, String name, String description) {
+    public Status(UUID uuid, String name, String description, List<Task> tasks) {
         this.name = name;
         this.description = description;
         this.uuid = uuid;
+        this.tasks = tasks;
     }
 
     public Long getStatusId() {
@@ -126,6 +131,14 @@ public class Status {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     @PrePersist

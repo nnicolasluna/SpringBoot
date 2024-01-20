@@ -52,7 +52,9 @@ public class CategoryDTO {
     public String getDescription() {
         return description;
     }
+    public interface UpdateValidationGroup {
 
+    }
 
 
     public void setDescription(String description) {

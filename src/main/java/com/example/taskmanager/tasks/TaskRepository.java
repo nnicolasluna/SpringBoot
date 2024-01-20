@@ -1,5 +1,6 @@
 package com.example.taskmanager.tasks;
 
+import com.example.taskmanager.category.Category;
 import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,4 +16,6 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Task> findAllByCategories_UuidIn(List<String> categories);
     List<Task> findAllByStatus_UuidIn(List<String> status);
     List<Task> findAllByCategories_UuidInAndStatus_UuidIn(List<String> categories, List<String> status);
+
+    List<Task> findAllByUuidIn(List<UUID> uuids);
 }

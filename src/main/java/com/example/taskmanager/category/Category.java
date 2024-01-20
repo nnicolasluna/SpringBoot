@@ -1,18 +1,15 @@
 package com.example.taskmanager.category;
 
 import com.example.taskmanager.tasks.Task;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.PrePersist;
+import jakarta.persistence.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -29,6 +26,8 @@ import java.util.UUID;
 //        }
 //)
 @Entity
+@EntityListeners(AuditingEntityListener.class)
+@EnableJpaAuditing
 @SQLDelete(sql = "UPDATE Category SET deleted = true WHERE category_id=?")
 @Where(clause = "deleted = false")
 public class Category {

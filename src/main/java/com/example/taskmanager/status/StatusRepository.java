@@ -9,5 +9,5 @@ import java.util.UUID;
 
 public interface StatusRepository extends JpaRepository<Status, Long> {
     Optional<Status> getStatusByUuid(UUID uuid);
-
+    Optional<Status> getTaskByUuid(UUID uuid);
 }

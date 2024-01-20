@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Size;
 
+import java.util.List;
 import java.util.UUID;
 
 public class StatusDTO {
@@ -18,6 +19,7 @@ public class StatusDTO {
     @NotBlank(message="Description cannot be blank")
     @Size(max = 2000, min = 3)
     private String description;
+    private List<TaskDTO> tasks;
 
     public StatusDTO(UUID uuid) {
         this.uuid = uuid;
@@ -27,10 +29,11 @@ public class StatusDTO {
     }
 
 
-    public StatusDTO(UUID uuid, String name, String description) {
+    public StatusDTO(UUID uuid, String name, String description, List<TaskDTO> tasks) {
         this.uuid = uuid;
         this.name = name;
         this.description = description;
+        this.tasks = tasks;
     }
 
     public UUID getUuid() {
@@ -59,5 +62,16 @@ public class StatusDTO {
 
     public interface CreateValidationGroup {
 
+    }
+    public interface UpdateValidationGroup {
+
+    }
+
+    public List<TaskDTO> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<TaskDTO> tasks) {
+        this.tasks = tasks;
     }
 }
